@@ -1,0 +1,7 @@
+#!/bin/bash
+
+function ip() {
+  local_ip=$(ifconfig | grep "inet " | awk '{printf "\t%s\n", $2}');
+  external_ip=$(curl -s ipinfo.io/ip | awk '{printf "\t%s\n", $0}');
+  printf "Local ips:\n%s\nExternal ip:\n%s\n" "$local_ip" "$external_ip"
+}

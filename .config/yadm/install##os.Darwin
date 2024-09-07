@@ -1,0 +1,82 @@
+#!/bin/bash
+
+[[ ! $(type -t install) = 'function' ]] && echo "Usage: file=$(basename "$0") yadm bootstrap" && exit 1
+
+is_apple_silicon() {
+	[[ $(uname -m) = "arm64" ]]
+}
+
+has_x86_support() {
+	arch -arch x86_64 uname -m > /dev/null
+}
+
+update_osx() {
+	# install OSX updates
+	confirm no 'softwareupdate --agree-to-license --install --all' "$(info 'Install ' warning 'OSX updates')"
+
+	# install Intel(x86) support for Apple Silicon
+	if is_apple_silicon && ! has_x86_support; then
+		confirm yes 'softwareupdate --agree-to-license --install-rosetta' "$(info 'Install ' warning 'OSX (x86 support)')"
+	fi
+}
+
+install_homebrew() {
+	# install universal Homebrew
+	install 'brew' '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+
+	if ! is_apple_silicon; then return; fi
+	if ! has_x86_support; then
+		echo "$(error 'Apple Silicon (x86 support) was not previously installed')"
+		exit 1
+	fi
+
+	# install x86 Homebrew for Apple Silicon
+	confirm no 'arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"' "$(info 'Install ' warning 'brew (x86 support)')"
+	brew tap "homebrew/bundle"
+}
+
+install_gamedev() {
+  brew install godot
+  brew install blender
+  brew install --cask material-maker
+}
+
+install_llm() {
+  brew install ollama
+  mas install 6474268307 # "Enchanted"
+}
+
+install_gaming() {
+  brew install --cask playcover-community
+  brew install --cask whisky
+  brew install --cask steam
+  brew install winetricks
+}
+
+install_optional() {
+  confirm no 'brew install --cask spotify' "$(info 'Install ' warning 'Spotify')"
+  confirm no 'mas install 897118787' "$(info 'Install ' warning 'Shazam')"
+  confirm no 'mas install 1241342461' "$(info 'Install ' warning 'Transcribe')"
+  confirm no 'brew install --cask rescuetime' "$(info 'Install ' warning 'Rescue Time')"
+  confirm no 'brew install --cask timemator' "$(info 'Install ' warning 'Timemator')"
+
+  confirm no 'mas install 1502839586' "$(info 'Install ' warning 'Hand Mirror')"
+  confirm no 'mas install 409183694' "$(info 'Install ' warning 'Keynote')"
+  confirm no 'mas install 409203825' "$(info 'Install ' warning 'Numbers')"
+  confirm no 'mas install 409201541' "$(info 'Install ' warning 'Pages')"
+  confirm no 'mas install 497799835' "$(info 'Install ' warning 'Xcode')"
+}
+
+# reload `.zshenv` to make sure that everything in place
+. $HOME/.zshenv
+
+update_osx
+install_homebrew
+
+brew bundle install
+confirm no 'install_gamedev' "$(info 'Install ' warning 'GameDev')"
+confirm no 'install_llm' "$(info 'Install ' warning 'LLM')"
+confirm no 'install_gaming' "$(info 'Install ' warning 'Gaming')"
+install_optional
+
+brew cu

@@ -1,0 +1,38 @@
+#!/bin/bash
+
+[[ ! $(type -t install) = 'function' ]] && echo "Usage: file=$(basename "$0") yadm bootstrap" && exit 1
+
+root=$(yadm enter echo '$GIT_WORK_TREE')
+cd "$root" || (echo "Can't change to 'yadm' working directory: $root" && exit 1)
+
+backup() {
+    local next_backup target_dir backup_dir
+    backup_dir="$root/yadm.bak"
+
+    # prepare next backup directory
+    [ -d "$backup_dir" ]  || mkdir -p "$backup_dir"
+    next_backup=$(($(ls -1 "$backup_dir" | sort -n | tail -n 1) + 1))
+    next_backup="$backup_dir/$next_backup"
+    mkdir -p "$next_backup"
+
+    echo $(info 'Backing up to: ' warning "$next_backup")
+
+    # backup modified files
+    yadm ls-files --modified | while IFS= read -r file; do
+      target_dir=$(dirname "$file")
+      [ -d "$next_backup/$target_dir" ]  || mkdir -p "$next_backup/$target_dir"
+      mv "$file" "$next_backup/$file"
+      yadm checkout -- ":/$file"
+    done
+}
+
+# checkout files that were locally deleted
+yadm ls-files --deleted | while IFS= read -r file; do
+  echo "[was deleted]: $file"
+  yadm checkout -- ":/$file"
+done
+
+# should we backup locally modified files?
+if [ -n "$(yadm ls-files --modified)" ]; then
+  confirm no 'backup' "$(warning 'There are local files that are different. Backup and replace?')"
+fi

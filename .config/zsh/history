@@ -1,0 +1,26 @@
+#!/bin/bash
+
+export HISTSIZE=1000
+export HISTFILESIZE=100000
+export SAVEHIST=$HISTSIZE
+export HISTTIMEFORMAT="[%F %T] "
+export HISTORY_IGNORE="(ls|bg|fg|pwd|exit|clear|cd ..|cd -)"
+
+setopt APPENDHISTORY 			# Append history to the history file (no overwriting)
+setopt INC_APPEND_HISTORY		# Immediately append to the history file, not just when a term is killed
+setopt EXTENDED_HISTORY         # Write the history file in the ':start:elapsed;command' format.
+setopt HIST_EXPIRE_DUPS_FIRST   # Expire a duplicate event first when trimming history.
+setopt HIST_FIND_NO_DUPS        # Do not display a previously found event.
+setopt HIST_IGNORE_ALL_DUPS     # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_IGNORE_DUPS         # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_SPACE        # Do not record an event starting with a space.
+setopt HIST_SAVE_NO_DUPS        # Do not write a duplicate event to the history file.
+setopt SHARE_HISTORY            # Share history between all sessions.
+
+export HISTFILE="${XDG_CACHE_HOME}/.zsh_history"
+export PYTHONHISTFILE="${XDG_CACHE_HOME}/.python_history"
+export NODE_REPL_HISTORY="${XDG_CACHE_HOME}/.node_repl_history"
+export REDISCLI_HISTFILE="${XDG_CACHE_HOME}/.rediscli_history"
+export USQL_HISTORY="${XDG_CACHE_HOME}/.usql_history"
+export SDCV_HISTFILE="${XDG_CACHE_HOME}/.sdcv_history"
+export SQLITE_HISTORY="${XDG_CACHE_HOME}/.sqlite_history"

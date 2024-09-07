@@ -1,0 +1,7 @@
+#!/bin/bash
+
+[[ ! $(type -t install) = 'function' ]] && echo "Usage: file=$(basename "$0") yadm bootstrap" && exit 1
+
+file=backup && yadm bootstrap;
+file=install && yadm bootstrap;
+file=configure && yadm bootstrap;

@@ -1,0 +1,19 @@
+[user]
+	name = plandem
+	email = plandem@gmail.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINwRcWO++1Lj5PPl6nTg0l2nuOhOPDmUjYSV4dPsROey
+[core]
+	editor = subl -n -w
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[push]
+	default = current

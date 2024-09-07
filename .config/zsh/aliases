@@ -1,0 +1,17 @@
+#!/bin/bash
+
+alias ls='lsd -la'
+alias lt="ls --tree"
+alias cat="bat"
+alias mv="mv -v"
+alias cp="cp -v"
+alias rm="rm -v"
+alias sudo="sudo -E"
+
+# Show/hide hidden files in Finder
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Hide/show all desktop icons (useful when presenting)
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
