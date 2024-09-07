@@ -95,8 +95,8 @@ function fix_zsh() {
   rm -f ~/.zcompdump; compinit
 
   # fix "zsh compinit: insecure directories" warnings
-  chmod go-w '/opt/homebrew/share'
-  chmod -R go-w '/opt/homebrew/share/zsh'
+  chmod go-w "$(brew --prefix)/share"
+  chmod -R go-w "$(brew --prefix)/share/zsh"
 }
 
 update_wezterm_icon
