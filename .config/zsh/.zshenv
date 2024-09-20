@@ -16,7 +16,6 @@ export XDG_LIB_HOME="$HOME/.local/lib"
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 export PATH="$XDG_BIN_HOME:$PATH"
 export PATH="$PATH:/usr/local/bin"
-export PATH="$PATH:$GOPATH/bin"
 
 export GOBIN=$XDG_BIN_HOME
 
