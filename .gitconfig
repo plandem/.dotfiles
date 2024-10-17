@@ -4,6 +4,7 @@
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINwRcWO++1Lj5PPl6nTg0l2nuOhOPDmUjYSV4dPsROey
 [core]
 	editor = subl -n -w
+	autocrlf = input
 [gpg]
 	format = ssh
 [gpg "ssh"]

@@ -2,5 +2,6 @@
 . "$ZDOTDIR/history"
 . "$ZDOTDIR/aliases"
 . "$ZDOTDIR/functions"
+. "$ZDOTDIR/nsc-autocompletion"
 eval "$(navi widget zsh)"
 eval "$(starship init zsh)"
