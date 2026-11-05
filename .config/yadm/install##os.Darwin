@@ -32,7 +32,6 @@ install_homebrew() {
 
 	# install x86 Homebrew for Apple Silicon
 	confirm no 'arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"' "$(info 'Install ' warning 'brew (x86 support)')"
-	brew tap "homebrew/bundle"
 }
 
 install_gamedev() {
