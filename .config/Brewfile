@@ -1,7 +1,4 @@
 tap "buo/cask-upgrade"
-tap "garden-io/garden"
-tap "homebrew/bundle"
-tap "homebrew/services"
 
 brew "node"
 brew "dust"
@@ -32,5 +29,5 @@ cask "whatroute"
 cask "zen-browser"
 cask "qbittorrent"
 cask "hex-fiend"
-mas "1Password for Safari", id: 1569813296
-mas "Unzip - RAR ZIP 7Z Unarchiver", id: 1537056818
+# mas "1Password for Safari", id: 1569813296
+# mas "Unzip - RAR ZIP 7Z Unarchiver", id: 1537056818
