@@ -43,14 +43,6 @@ install_gamedev() {
 
 install_llm() {
   brew install ollama
-  mas install 6474268307 # "Enchanted"
-}
-
-install_gaming() {
-  brew install --cask playcover-community
-  brew install --cask whisky
-  brew install --cask steam
-  brew install winetricks
 }
 
 install_optional() {
@@ -76,7 +68,6 @@ install_homebrew
 brew bundle install
 confirm no 'install_gamedev' "$(info 'Install ' warning 'GameDev')"
 confirm no 'install_llm' "$(info 'Install ' warning 'LLM')"
-confirm no 'install_gaming' "$(info 'Install ' warning 'Gaming')"
 install_optional
 
 brew cu
