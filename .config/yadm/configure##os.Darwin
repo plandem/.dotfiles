@@ -100,6 +100,6 @@ function fix_zsh() {
 }
 
 update_wezterm_icon
-update_default_editor
-update_defaults
+# update_default_editor
+# update_defaults
 fix_zsh
